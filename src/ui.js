@@ -13,9 +13,9 @@ class UI {
 
     posts.forEach((post) => {
       output += `
-        <div class="card mb-3 mx-auto" style="max-width: 50rem;">
+        <div class="card border-light mb-3 mx-auto" style="max-width: 50rem;">
           <div class="card-body">
-            <h4 class="card-title">${post.title}</h4>
+            <h2 class="card-title">${post.title}</h2>
             <p class="card-text">${post.body}</p>
             <a href="#" class="edit card-link" data-id="${post.id}">
               <i class="fa fa-pencil"></i>
@@ -65,6 +65,50 @@ class UI {
   clearFields() {
     this.titleInput.value = '';
     this.bodyInput.value = '';
+  }
+
+  fillForm(data) {
+    this.titleInput.value = data.title;
+    this.bodyInput.value = data.body;
+    this.idInput.value = data.id;
+
+    this.changeFormState('edit');
+  }
+
+  // Clear ID Hidden value
+  clearIdinput() {
+    this.idInput.value = ''
+  }
+
+  changeFormState(type) {
+    if (type === 'edit') {
+      this.postSubmit.textContent = 'Update Post';
+      this.postSubmit.ClassName = 'post-submit btn btn-warning btn-block';
+
+      // Create Cancel button
+      const button = document.createElement('button');
+      button.className = 'post-cancel btn btn-danger btn-block'
+      button.appendChild(document.createTextNode('Cancel Edit'));
+
+      // Get parent
+      const cardForm = document.querySelector('.card-form');
+      // Get element to insert before
+      const formEnd = document.querySelector('.form-end');
+      cardForm.insertBefore(button, formEnd);
+    } else {
+      this.postSubmit.textContent = 'Post it';
+      this.postSubmit.className = 'post-submit btn btn-primary btn-block';
+
+      // Remove Cancel Btn
+      if (document.querySelector('.post-cancel')) {
+        document.querySelector('.post-cancel').remove();
+      }
+
+      // Clear ID from hidden field
+      this.clearIdInput();
+      //
+      this.clearFields();
+    }
   }
 }
 

@@ -40,7 +40,7 @@ function submitPost() {
   };
 
   if (title === '' || body === '') {
-    ui.showAlert('Please fill in all fields', 'alert alert-danger';)
+    ui.showAlert('Please fill in all fields', 'alert alert-danger')
   } else {
 
     if (id === '') {
@@ -53,7 +53,13 @@ function submitPost() {
         })
         .catch(err => console.log(err));
     } else {
-
+      http.put(`http://localhost:3000/posts/${id}`, data)
+        .then(data => {
+          ui.showAlert('Post updated', 'alert alert-success');
+          ui.changeFormState('add')
+          getPosts();
+        })
+        .catch(err => console.log(err));
     }
   }
 }

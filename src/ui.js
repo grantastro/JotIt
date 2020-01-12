@@ -2,6 +2,8 @@ class UI {
   constructor() {
     this.post = document.querySelector('#posts');
     this.titleInput = document.querySelector('#title');
+    this.stateLabel = document.querySelector('#stateLabel');
+    this.instructLabel = document.querySelector('#instructLabel');
     this.bodyInput = document.querySelector('#body');
     this.idInput = document.querySelector('#id');
     this.postSubmit = document.querySelector('.post-submit');
@@ -13,7 +15,7 @@ class UI {
 
     posts.forEach((post) => {
       output += `
-        <div class="card border-light mb-3 mx-auto" style="max-width: 50rem;">
+        <div class="card border-light mb-3 mx-auto" style="max-width: 40rem;">
           <div class="card-body">
             <h2 class="card-title">${post.title}</h2>
             <p class="card-text">${post.body}</p>
@@ -82,6 +84,10 @@ class UI {
 
   changeFormState(type) {
     if (type === 'edit') {
+      this.stateLabel.textContent = 'Edit';
+
+      this.instructLabel.textContent = 'Edit your Post!';
+
       this.postSubmit.textContent = 'Update Post';
       this.postSubmit.ClassName = 'post-submit btn btn-warning btn-block';
 
@@ -97,17 +103,16 @@ class UI {
       cardForm.insertBefore(button, formEnd);
     } else {
       this.postSubmit.textContent = 'Post it';
-      this.postSubmit.className = 'post-submit btn btn-primary btn-block';
-
+      this.postSubmit.className = 'post-submit btn btn-success btn-block';
+      this.clearFields();
       // Remove Cancel Btn
       if (document.querySelector('.post-cancel')) {
+        this.stateLabel.textContent = 'Jot It Down'
+        this.instructLabel.textContent = `What's on your mind?`
         document.querySelector('.post-cancel').remove();
       }
 
-      // Clear ID from hidden field
       this.clearIdInput();
-      //
-      this.clearFields();
     }
   }
 }

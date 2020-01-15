@@ -1,14 +1,9 @@
 {
   "posts": [
     {
-      "title": "Post One",
-      "body": "This post has been edited.",
+      "title": "Example Post",
+      "body": "This an example post",
       "id": 1
-    },
-    {
-      "title": "Post Two ",
-      "body": "This is post two",
-      "id": 2
     }
   ]
 }
